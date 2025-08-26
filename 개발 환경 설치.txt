@@ -1,0 +1,9 @@
+깃허브에 올리기
+docker,github action
+dify
+ollama
+db 설정
+application.yml 파일 코드 생성
+로그 파일 생성
+https://e-room.tistory.com/170
+https://e-room.tistory.com/171
