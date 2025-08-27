@@ -1,4 +1,4 @@
-docker,github action
+이슈 템플릿
 db 설정
 application.yml 파일 코드 생성
 dify
