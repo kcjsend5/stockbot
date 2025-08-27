@@ -1,9 +1,8 @@
-깃허브에 올리기
 docker,github action
-dify
-ollama
 db 설정
 application.yml 파일 코드 생성
+dify
+ollama
 로그 파일 생성
-https://e-room.tistory.com/170
-https://e-room.tistory.com/171
+
+https://velog.io/@rivkode/Github-Action-Docker-compose%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%EB%B0%B0%ED%8F%AC-%EC%9E%90%EB%8F%99%ED%99%94-CICD-Spring-boot-MySQL

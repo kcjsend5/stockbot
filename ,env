@@ -1,0 +1,4 @@
+MYSQL_URL=jdbc:mysql://localhost:3306/stockdb?useSSL=false&serverTimezone=UTC
+MYSQL_DATABASE=stockdb
+MYSQL_USERNAME=root
+MYSQL_PASSWORD=1234
