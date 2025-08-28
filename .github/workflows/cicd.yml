@@ -87,12 +87,3 @@ jobs:
       #          sudo docker rm -f $(sudo docker ps -qa)
       #          sudo docker pull kcjsend5/stockbot:latest
       #          sudo docker run -d -p 8080:8080 kcjsend5/stockbot:latest
-
-      - name: Notify Slack
-        if: ${{ success() }}
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_COLOR: '#00FF00'
-          SLACK_TITLE: 'Build and Deploy'
-          SLACK_TEXT: '✅ **백엔드 배포 성공** - Docker 이미지: kcjsend5/stockbot:latest'
