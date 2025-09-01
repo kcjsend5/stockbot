@@ -11,10 +11,10 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
-          MYSQL_USER: ${{ secrets.MYSQL_USERNAME }}
-          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_ROOT_PASSWORD: 1234 #${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_DATABASE: stockdb #${{ secrets.MYSQL_DATABASE }}
+          MYSQL_USER: root #${{ secrets.MYSQL_USERNAME }}
+          MYSQL_PASSWORD: 1234 #${{ secrets.MYSQL_PASSWORD }}
         ports:
           - 3306:3306
 
