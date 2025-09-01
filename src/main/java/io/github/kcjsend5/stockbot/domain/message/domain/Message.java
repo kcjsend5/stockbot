@@ -23,5 +23,6 @@ public class Message extends BaseEntity {
 
     private String messageText;
 
+    @Enumerated(EnumType.STRING)
     private Sender sender;
 }
