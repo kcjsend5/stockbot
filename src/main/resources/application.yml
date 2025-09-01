@@ -20,6 +20,10 @@ spring:
     url: ${MYSQL_URL}
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_PASSWORD}
+  data:
+    redis:
+      host: localhost
+      port: 6379
 
 logging:
   level:
@@ -28,3 +32,9 @@ logging:
 
 server:
   port: 8080
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration:
+    accessToken: 10800000
+    refreshToken: 1209600000
