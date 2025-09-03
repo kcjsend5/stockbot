@@ -20,4 +20,6 @@ public class Knowledge extends BaseEntity {
     private Conversation conversation;
 
     private String knowledgeId;
+
+    private String subject;//주제에 따라 api로 뉴스를 크롤링 후 지식에 청크를 입력
 }
