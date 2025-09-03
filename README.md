@@ -32,6 +32,8 @@
 
 ![img_2.png](src/main/resources/static/images/img_2.png)
 
+![img_3.png](src/main/resources/static/images/img_3.png)
+
 <br>
 
 ## 👥 개발자 소개
