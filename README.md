@@ -11,7 +11,7 @@
 **🎯 사용 기술**
 
 ---
-- **Java, SpringBoot, JPA, MySQL, Redis, Spring Security+JWT Docker, Github Actions, AWS EC2,Dify,Ollama**
+- **Java, SpringBoot, JPA, MySQL, Redis, Spring Security+JWT Docker, Github Actions, AWS EC2,Ollama,Spring AI**
   
 <br>
 
@@ -19,7 +19,7 @@
 
 ---
 - RAG및 뉴스 크롤링을 통한 특정 주식 정보 수집 기능
-- dify를 사용한 챗봇 생성 기능
+- Spring AI를 사용한 챗봇 생성 기능
 - Ollama를 이용한 로컬 AI 기능
 - 매일 12시 수집 정보 초기화 기능
 
