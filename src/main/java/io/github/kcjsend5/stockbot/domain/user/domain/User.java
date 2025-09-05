@@ -20,13 +20,11 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String userId;
+    private String email;//로그인 아이디
 
     private String password;
 
     private String userName;
-
-    private String email;
 
     @Enumerated(EnumType.STRING)
     private Role role;
