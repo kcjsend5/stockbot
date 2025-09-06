@@ -27,7 +27,7 @@ public class JwtTokenProvider {
     public JwtTokenProvider(@Value("${jwt.secret}") String secretKey,UserDetailsService userDetailsService,RedisDao redisDao){
         this.userDetailsService = userDetailsService;
         this.redisDao = redisDao;
-        byte[] keyBytes = Base64.getDecoder().decode(secretKey);
+        byte[] keyBytes = Base64.getEncoder().encode(secretKey.getBytes());
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 }
