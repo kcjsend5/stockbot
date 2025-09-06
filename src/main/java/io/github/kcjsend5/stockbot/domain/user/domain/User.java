@@ -5,8 +5,11 @@ import io.github.kcjsend5.stockbot.global.entity.BaseEntity;
 import io.github.kcjsend5.stockbot.type.Role;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -32,4 +35,5 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
     @Builder.Default
     List<Conversation> conversations = new ArrayList<>();
+
 }
