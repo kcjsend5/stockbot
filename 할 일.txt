@@ -1,6 +1,5 @@
 커스텀 예외
 로그인
-secrete username 변경
 
 ERD
 유저-일대다-대화
@@ -14,12 +13,13 @@ LocalDateTime updatedAt
 User//유저
 Long id
 String userId
-String passWord
+String password
 String username
+String email
 Role role //enum 타입
 List<Conversation> conversations
 
-Conversation//대화
+Conversation//대화: 주식 주제마다 미리 채팅플로우를 만든 후 사용자가 원하는 채팅플로우ID를 입력받아 생성하기
 Long id
 User user
 List<Message> messages
@@ -36,9 +36,13 @@ Knowledge//지식
 Long id
 Conversation conversation
 String knowledgeId
+String subject
 
 
 로그인 https://guswls28.tistory.com/137
 https://velog.io/@dl-00-e8/Spring-Spring-Security%EB%A1%9C-%EC%9D%BC%EB%B0%98-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B5%AC%ED%98%84#erd-%EC%84%A4%EA%B3%84
 https://eesko.tistory.com/333
+
+Spring AI를 통한 RAG
+https://innovation123.tistory.com/282
 
