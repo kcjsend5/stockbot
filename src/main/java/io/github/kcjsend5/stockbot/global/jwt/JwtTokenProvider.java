@@ -27,7 +27,6 @@ public class JwtTokenProvider {
     private static final String GRANT_TYPE = "Bearer";
 
     private final Key key;
-    private final UserDetailsService userDetailsService;
     private final RedisDao redisDao;
 
     @Value("${jwt.expiration.accessToken}")
@@ -36,8 +35,7 @@ public class JwtTokenProvider {
     @Value("${jwt.expiration.refreshToken}")
     private long REFRESH_TOKEN_EXPIRE_TIME;
 
-    public JwtTokenProvider(@Value("${jwt.secret}") String secretKey,UserDetailsService userDetailsService,RedisDao redisDao){
-        this.userDetailsService = userDetailsService;
+    public JwtTokenProvider(@Value("${jwt.secret}") String secretKey,RedisDao redisDao){
         this.redisDao = redisDao;
         byte[] keyBytes = Base64.getEncoder().encode(secretKey.getBytes());
         this.key = Keys.hmacShaKeyFor(keyBytes);
