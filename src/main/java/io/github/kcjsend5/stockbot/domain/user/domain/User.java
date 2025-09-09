@@ -4,6 +4,8 @@ import io.github.kcjsend5.stockbot.domain.conversation.domain.Conversation;
 import io.github.kcjsend5.stockbot.global.entity.BaseEntity;
 import io.github.kcjsend5.stockbot.type.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,8 +25,10 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String email;//로그인 아이디
 
+    @NotEmpty
     private String password;
 
     private String userName;
