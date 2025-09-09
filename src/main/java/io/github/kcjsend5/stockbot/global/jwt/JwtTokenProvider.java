@@ -1,14 +1,12 @@
 package io.github.kcjsend5.stockbot.global.jwt;
 
 import io.github.kcjsend5.stockbot.global.Dao.RedisDao;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -90,28 +88,78 @@ public class JwtTokenProvider {
     public Authentication getAuthentication(String accessToken){
 
         Claims claims = parseClaims(accessToken);
-        if(claims.get("auth") == null){
-            throw new RuntimeException("권한 정보가 없는 토큰입니다");
+        UserDetails principal = userDetailsService.loadUserByUsername(claims.getSubject());
+        if(principal.getAuthorities() == null||principal.getAuthorities().isEmpty()){
+            throw new InsufficientAuthenticationException("권한 정보가 없는 토큰입니다");
         }
 
-        Collection<? extends GrantedAuthority> authorities = Arrays.stream(claims.get("auth").toString().split(","))
-                .map(SimpleGrantedAuthority::new)
-                .toList();
-
-        UserDetails principal = userDetailsService.loadUserByUsername(claims.getSubject());
         return new UsernamePasswordAuthenticationToken(principal, "", principal.getAuthorities());
     }
 
-    private Claims parseClaims(String accessToken){
+    private Claims parseClaims(String token){
         try{
             return Jwts.parserBuilder()
                     .setSigningKey(key)//암호화한 키로 다시 복호화
                     .build()
-                    .parseClaimsJwt(accessToken)//토큰 검증, 검증 후 파싱: Jwts 토큰을 Header, Body, Signature 세 부분으로 분리
+                    .parseClaimsJwt(token)//토큰 검증, 검증 후 파싱: Jwts 토큰을 Header, Body, Signature 세 부분으로 분리
                     .getBody();
         } catch (ExpiredJwtException e){
             return e.getClaims();
         }
+    }
+
+    public String getEmailFromToken(String token){
+
+        try {
+            Claims claims = parseClaims(token);
+            return claims.getSubject();
+        } catch (ExpiredJwtException e){// 토큰이 만료되어도 클레임 내용을 가져올 수 있음
+            return e.getClaims().getSubject();
+        }
+    }
+
+    //토큰 정보 검증
+    public boolean validateToken(String token){
+        try{
+            Jwts.parserBuilder()
+                    .setSigningKey(key)//암호화한 키로 다시 복호화
+                    .build()
+                    .parseClaimsJwt(token);
+
+            return true;
+        } catch (SecurityException | MalformedJwtException e){
+            log.info("Invalid JWT Token", e);
+        } catch (ExpiredJwtException e){
+            log.info("Expired JWT Token", e);
+        } catch (UnsupportedJwtException e){
+            log.info("Unsupported JWT Token",e);
+        } catch (IllegalArgumentException e){
+            log.info("JWT claims string is empty", e);
+        }
+        return false;
+    }
+
+    public boolean validateRefreshToken(String token){
+        if(!validateToken(token)){
+            return false;
+        }
+
+        try{
+            String email = getEmailFromToken(token);
+            String redisToken = (String)redisDao.getValues(email);
+            return token.equals(redisToken);
+        } catch (Exception e){
+            log.info("RefreshToken Validation Failed", e);
+            return false;
+        }
+    }
+
+    public void deleteRefreshToken(String email){
+        if(email == null||email.isBlank()){
+            throw new IllegalArgumentException("Username cannot be null or empty");
+        }
+
+        redisDao.deleteValues(email);
     }
 
 }
