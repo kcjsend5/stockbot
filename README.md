@@ -28,11 +28,11 @@
 **🚀 시스템 아키텍처**
 
 ---
-![img.png](src/main/resources/static/images/img.png)
+![img.png](src/main/resources/static/image/img.png)
 
-![img_2.png](src/main/resources/static/images/img_2.png)
+![img_2.png](src/main/resources/static/image/img_2.png)
 
-![img_3.png](src/main/resources/static/images/img_3.png)
+![img_3.png](src/main/resources/static/image/img_3.png)
 
 <br>
 
