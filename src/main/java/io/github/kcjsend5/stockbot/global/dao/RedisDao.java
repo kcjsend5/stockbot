@@ -1,4 +1,4 @@
-package io.github.kcjsend5.stockbot.global.Dao;
+package io.github.kcjsend5.stockbot.global.dao;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
