@@ -54,7 +54,9 @@ public class SecurityConfig {
 
         //http 리퀘스트 인증 설정
         httpSecurity.authorizeHttpRequests(authorize ->
-                authorize.anyRequest().permitAll());//.requestMatchers(list).permitAll().anyRequest().authenticated()); 실제 운영 중 변경
+                authorize.anyRequest().permitAll());//.requestMatchers(list).permitAll()
+        // .requestMatchers("/user/setRole").hasAnyRole("MANAGER","DEVELOPER")
+        // .anyRequest().authenticated()); 실제 운영 중 변경
 
         //커스텀 필터 UsernamePasswordAuthenticationFilter 이전 실행
         httpSecurity.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
