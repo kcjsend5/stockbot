@@ -1,5 +1,4 @@
-커스텀,전역 예외
-테스트
+배포할떄 mysql 도커 컴포즈에서 제거하고 RDS로 변경하기
 
 ERD
 유저-일대다-대화
@@ -12,10 +11,9 @@ LocalDateTime updatedAt
 
 User//유저
 Long id
-String userId
+String email
 String password
 String username
-String email
 Role role //enum 타입
 List<Conversation> conversations
 
