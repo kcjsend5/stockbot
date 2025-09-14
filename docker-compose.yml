@@ -1,6 +1,6 @@
 
 services:
-  mysql:
+  mysql: # 배포할때 RDS로 교체하기 위해 지우기
     image: mysql:8.0.33
     container_name: mysql
     restart: always

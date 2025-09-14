@@ -8,6 +8,10 @@ import io.github.kcjsend5.stockbot.domain.user.dto.response.LogInResponse;
 import io.github.kcjsend5.stockbot.domain.user.dto.response.TokenResponse;
 import io.github.kcjsend5.stockbot.domain.user.repository.UserRepository;
 import io.github.kcjsend5.stockbot.global.config.SecurityConfig;
+import io.github.kcjsend5.stockbot.global.exception.email.DuplicateEmailException;
+import io.github.kcjsend5.stockbot.global.exception.email.InvalidEmailException;
+import io.github.kcjsend5.stockbot.global.exception.password.InvalidPasswordException;
+import io.github.kcjsend5.stockbot.global.exception.token.InvalidTokenException;
 import io.github.kcjsend5.stockbot.global.jwt.JwtToken;
 import io.github.kcjsend5.stockbot.global.jwt.JwtTokenProvider;
 import io.github.kcjsend5.stockbot.type.Role;
@@ -31,7 +35,7 @@ public class UserService {
         String password = passwordEncoder.encode(request.getPassword());
 
         if(userRepository.existsByEmail(request.getEmail())){
-            throw new IllegalArgumentException("이미 존재하는 이메일입니다");//전역 커스텀 예외 처리하기
+            throw new DuplicateEmailException();
         }
 
         User user = User.builder()
@@ -46,7 +50,7 @@ public class UserService {
 
     public LogInResponse userLogin(LogInRequest request){
 
-        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(()->new IllegalArgumentException("이메일로 유저 조회 실패"));
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(InvalidEmailException::new);
 
         if(passwordEncoder.matches(request.getPassword(), user.getPassword())){
             JwtToken token = provider.generateToken(request.getEmail());
@@ -55,7 +59,7 @@ public class UserService {
 
             return new LogInResponse(accessToken,refreshToken,user.getUserName());
         } else{
-            throw new IllegalArgumentException("잘못된 비밀번호 입니다.");//전역 커스텀 예외 처리하기
+            throw new InvalidPasswordException();
         }
     }
 
@@ -64,7 +68,7 @@ public class UserService {
         String refreshToken = request.getRefreshToken();
 
         if(!provider.validateRefreshToken(refreshToken)){
-            throw new IllegalArgumentException("토큰 값이 다릅니다.");//전역 커스텀 예외 처리하기
+            throw new InvalidTokenException();//전역 커스텀 예외 처리하기 throw new InvalidTokenException()
         }
 
         String email = provider.getEmailFromToken(refreshToken);
