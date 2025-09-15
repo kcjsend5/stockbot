@@ -1,6 +1,7 @@
 package io.github.kcjsend5.stockbot.global.jwt;
 
 import io.github.kcjsend5.stockbot.global.dao.RedisDao;
+import io.github.kcjsend5.stockbot.global.exception.user.UserNotFoundException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -147,7 +148,7 @@ public class JwtTokenProvider {
 
     public void deleteRefreshToken(String email){
         if(email == null||email.isBlank()){
-            throw new IllegalArgumentException("Username cannot be null or empty");
+            throw new UserNotFoundException();
         }
 
         redisDao.deleteValues(email);
