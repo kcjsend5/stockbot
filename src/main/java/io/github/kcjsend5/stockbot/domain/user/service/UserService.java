@@ -2,6 +2,7 @@ package io.github.kcjsend5.stockbot.domain.user.service;
 
 import io.github.kcjsend5.stockbot.domain.user.domain.User;
 import io.github.kcjsend5.stockbot.domain.user.dto.request.LogInRequest;
+import io.github.kcjsend5.stockbot.domain.user.dto.request.LogoutRequest;
 import io.github.kcjsend5.stockbot.domain.user.dto.request.RefreshTokenRequest;
 import io.github.kcjsend5.stockbot.domain.user.dto.request.SignUpRequest;
 import io.github.kcjsend5.stockbot.domain.user.dto.response.LogInResponse;
@@ -76,5 +77,13 @@ public class UserService {
 
         return new TokenResponse(token.getAccessToken(), token.getRefreshToken());
 
+    }
+
+    public void userLogout(LogoutRequest request){
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(InvalidEmailException::new);
+        if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new InvalidPasswordException();
+        }
+        provider.deleteRefreshToken(request.getEmail());
     }
 }

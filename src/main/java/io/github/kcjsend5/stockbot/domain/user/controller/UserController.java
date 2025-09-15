@@ -1,6 +1,7 @@
 package io.github.kcjsend5.stockbot.domain.user.controller;
 
 import io.github.kcjsend5.stockbot.domain.user.dto.request.LogInRequest;
+import io.github.kcjsend5.stockbot.domain.user.dto.request.LogoutRequest;
 import io.github.kcjsend5.stockbot.domain.user.dto.request.RefreshTokenRequest;
 import io.github.kcjsend5.stockbot.domain.user.dto.request.SignUpRequest;
 import io.github.kcjsend5.stockbot.domain.user.dto.response.LogInResponse;
@@ -31,6 +32,12 @@ public class UserController {
     @PostMapping("/refresh")
     public ResponseEntity<TokenResponse> recreateToken(RefreshTokenRequest request){
         return ResponseEntity.ok(userService.recreateToken(request));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(LogoutRequest request){
+        userService.userLogout(request);
+        return ResponseEntity.ok().build();
     }
 
 }

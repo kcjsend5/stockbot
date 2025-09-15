@@ -20,6 +20,7 @@ public enum ErrorCode {
     // token
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED,"ET001","유효하지 않는 토큰입니다");
 
+
     private final HttpStatus httpStatus;
     private final String code;
     private final String message;
