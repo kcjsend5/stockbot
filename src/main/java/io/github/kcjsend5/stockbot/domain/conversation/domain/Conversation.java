@@ -31,5 +31,7 @@ public class Conversation extends BaseEntity {
     @JoinColumn(name = "knowledge_id")
     private Knowledge knowledge;
 
+    private String conversationName;
+
     private String conversationId;//채팅플로우 ID
 }
