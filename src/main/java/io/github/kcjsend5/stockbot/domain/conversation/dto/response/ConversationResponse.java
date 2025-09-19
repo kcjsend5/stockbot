@@ -18,5 +18,6 @@ public class ConversationResponse {
     private List<MessageResponse> messages;
     private KnowledgeResponse knowledge;
     private String conversationId;
+    private String conversationName;
 
 }
