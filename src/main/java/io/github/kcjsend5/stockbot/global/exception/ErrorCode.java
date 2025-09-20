@@ -18,7 +18,9 @@ public enum ErrorCode {
     INVALID_EMAIL(HttpStatus.UNAUTHORIZED,"EE001","존재하지 않는 이메일입니다"),
     DUPLICATE_EMAIL(HttpStatus.CONFLICT,"EE002","이미 존재하는 이메일입니다"),
     // token
-    INVALID_TOKEN(HttpStatus.UNAUTHORIZED,"ET001","유효하지 않는 토큰입니다");
+    INVALID_TOKEN(HttpStatus.UNAUTHORIZED,"ET001","유효하지 않는 토큰입니다"),
+    //category
+    INVALID_CATEGORY(HttpStatus.UNAUTHORIZED,"EC001","존재하지 않는 카테고리입니다");
 
 
     private final HttpStatus httpStatus;

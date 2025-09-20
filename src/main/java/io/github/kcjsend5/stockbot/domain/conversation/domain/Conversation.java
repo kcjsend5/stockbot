@@ -7,6 +7,7 @@ import io.github.kcjsend5.stockbot.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,13 +26,25 @@ public class Conversation extends BaseEntity {
     private User user;
 
     @OneToMany(mappedBy = "conversation",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Message> messages;
+    @Builder.Default
+    private List<Message> messages = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "knowledge_id")
     private Knowledge knowledge;
 
     private String conversationName;
 
-    private String conversationId;//채팅플로우 ID
+    private String conversationId;//대화방 ID
+
+    private String chatFlowId;
+
+    public void setKnowledge(Knowledge knowledge){
+        this.knowledge = knowledge;
+        knowledge.setConversation(this);
+    }
+
+    public void setUser(User user){
+        this.user = user;
+    }
 }

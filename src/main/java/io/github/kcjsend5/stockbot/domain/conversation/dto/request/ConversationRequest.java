@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ConversationRequest {
 
-    private String email;
     private String conversationName;
     private Category category;
 

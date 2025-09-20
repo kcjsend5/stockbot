@@ -13,10 +13,14 @@ import io.github.kcjsend5.stockbot.global.exception.email.DuplicateEmailExceptio
 import io.github.kcjsend5.stockbot.global.exception.email.InvalidEmailException;
 import io.github.kcjsend5.stockbot.global.exception.password.InvalidPasswordException;
 import io.github.kcjsend5.stockbot.global.exception.token.InvalidTokenException;
+import io.github.kcjsend5.stockbot.global.exception.user.UserNotFoundException;
 import io.github.kcjsend5.stockbot.global.jwt.JwtToken;
 import io.github.kcjsend5.stockbot.global.jwt.JwtTokenProvider;
+import io.github.kcjsend5.stockbot.global.jwt.custom.CustomUserDetails;
 import io.github.kcjsend5.stockbot.type.Role;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

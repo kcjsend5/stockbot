@@ -26,9 +26,10 @@ public class User extends BaseEntity {
     private Long id;
 
     @NotBlank
+    @Column(unique = true)
     private String email;//로그인 아이디
 
-    @NotEmpty
+    @NotBlank
     private String password;
 
     private String userName;
@@ -40,4 +41,8 @@ public class User extends BaseEntity {
     @Builder.Default
     List<Conversation> conversations = new ArrayList<>();
 
+    public void addConversation(Conversation conversation) {
+        this.conversations.add(conversation);
+        conversation.setUser(this);
+    }
 }
