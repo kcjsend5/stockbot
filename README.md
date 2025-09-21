@@ -11,7 +11,7 @@
 **🎯 사용 기술**
 
 ---
-- **Java, SpringBoot, JPA, MySQL, Redis, Spring Security+JWT Docker, Github Actions, AWS EC2,Ollama,Dify**
+- **Java, SpringBoot, JPA, MySQL, Redis, Spring Security+JWT, Docker, Github Actions, AWS EC2,Ollama,Dify**
   
 <br>
 
