@@ -37,8 +37,6 @@ public class Conversation extends BaseEntity {
 
     private String conversationId;//대화방 ID
 
-    private String chatFlowId;
-
     public void setKnowledge(Knowledge knowledge){
         this.knowledge = knowledge;
         knowledge.setConversation(this);
