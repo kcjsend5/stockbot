@@ -1,11 +1,10 @@
 package io.github.kcjsend5.stockbot.global.config;
 
+import io.github.kcjsend5.stockbot.global.api.difyProducts.dto.request.DifyDeleteRequest;
 import io.github.kcjsend5.stockbot.global.api.difyProducts.dto.request.DifySendChatRequest;
 import io.github.kcjsend5.stockbot.global.api.difyProducts.dto.response.DifySendChatResponse;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -19,6 +18,13 @@ public interface DifyClient{
             URI uri,
             @RequestHeader("Authorization") String apiKey,
             @RequestBody DifySendChatRequest request
+    );
+
+    @DeleteMapping(consumes = APPLICATION_JSON_VALUE)
+    void deleteChat(
+            URI uri,
+            @RequestHeader("Authorization") String apiKey,
+            @RequestBody DifyDeleteRequest request
     );
 
 }

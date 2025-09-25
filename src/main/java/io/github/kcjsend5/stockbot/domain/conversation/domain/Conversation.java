@@ -35,6 +35,7 @@ public class Conversation extends BaseEntity {
 
     private String conversationName;
 
+    @Column(unique = true)
     private String conversationId;//대화방 ID
 
     public void setKnowledge(Knowledge knowledge){
@@ -44,5 +45,10 @@ public class Conversation extends BaseEntity {
 
     public void setUser(User user){
         this.user = user;
+    }
+
+    public void addMessage(Message message){
+        this.messages.add(message);
+        message.setConversation(this);
     }
 }

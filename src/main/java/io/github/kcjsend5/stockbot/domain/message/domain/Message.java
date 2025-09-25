@@ -25,4 +25,8 @@ public class Message extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private Sender sender;
+
+    public void setConversation(Conversation conversation){
+        this.conversation = conversation;
+    }
 }

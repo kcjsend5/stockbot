@@ -12,6 +12,7 @@ public enum ErrorCode {
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "ECO001", "서버 오류가 발생했습니다."),
     // user
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "EU001", "사용자를 찾을 수 없습니다."),
+    FORBIDDEN_USER(HttpStatus.FORBIDDEN,"EU002","인가되지 않은 유저입니다"),
     // password
     INVALID_PASSWORD(HttpStatus.UNAUTHORIZED,"EP001","비밀번호가 다릅니다"),
     // email
@@ -20,7 +21,11 @@ public enum ErrorCode {
     // token
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED,"ET001","유효하지 않는 토큰입니다"),
     //category
-    INVALID_CATEGORY(HttpStatus.UNAUTHORIZED,"EC001","존재하지 않는 카테고리입니다");
+    INVALID_CATEGORY(HttpStatus.UNAUTHORIZED,"EC001","존재하지 않는 카테고리입니다"),
+    //uri
+    INVALID_URI(HttpStatus.UNAUTHORIZED,"EUR001","존재하지 않는 주소입니다"),
+    //conversation
+    CONVERSATION_NOT_FOUND(HttpStatus.NOT_FOUND, "ECO001", "대화방을 찾을 수 없습니다.");
 
 
     private final HttpStatus httpStatus;
