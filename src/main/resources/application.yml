@@ -38,3 +38,10 @@ jwt:
   expiration:
     accessToken: 10800000
     refreshToken: 1209600000
+
+dify:
+  chat:
+    secret: ${DIFY_CHAT_KEY}
+  knowledge:
+    secret: ${DIFY_KNOWLEDGE_KEY}
+  uri:
