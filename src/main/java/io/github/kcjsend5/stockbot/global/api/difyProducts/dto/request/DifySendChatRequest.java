@@ -1,6 +1,4 @@
 package io.github.kcjsend5.stockbot.global.api.difyProducts.dto.request;
-
-import io.github.kcjsend5.stockbot.global.api.difyProducts.dto.FileData;
 import lombok.*;
 
 import java.util.List;
@@ -17,6 +15,5 @@ public class DifySendChatRequest {
     private String response_mode;
     private String conversation_id;
     private String user;
-    private List<FileData> files;
 
 }
