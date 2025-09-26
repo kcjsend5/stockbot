@@ -26,5 +26,4 @@ public interface DifyClient{
             @RequestHeader("Authorization") String apiKey,
             @RequestBody DifyDeleteRequest request
     );
-
 }
