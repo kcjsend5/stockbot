@@ -48,6 +48,13 @@ public class ConversationService {
     private final UserRepository userRepository;
     private final DifyProductsService difyProductsService;
 
+    @Value("${dify.knowledge.id.coin}") private String coinId;
+    @Value("${dify.knowledge.id.stock}") private String stockId;
+    @Value("${dify.knowledge.id.bonds}") private String bondsId;
+    @Value("${dify.knowledge.id.estate}") private String estateId;
+    @Value("${dify.knowledge.id.futures}") private String futuresId;
+    @Value("${dify.knowledge.id.commodities}") private String commoditiesId;
+
     @Transactional
     public ConversationResponse save(ConversationRequest request) throws URISyntaxException {
 
@@ -152,12 +159,12 @@ public class ConversationService {
     private String setKnowledgeId(Category category) {
 
         switch (category){
-            case coin -> {return "69ab286f-4ffa-4457-85e6-f109581fa6b3";}
-            case stock -> {return "7905b43e-f01b-4da3-86e9-cdb98da174d0";}
-            case bonds -> {return "1dd2a824-21b1-43a7-b7d3-f2e5de4e1d52";}
-            case estate -> {return "36c321f4-0b2a-411f-b487-a67210e448d5";}
-            case futures -> {return "4f5e04ee-9094-424b-8392-2b359541de33";}
-            case commodities -> {return "7b15c364-a56a-4ee5-a915-3613059bb7fe";}
+            case coin -> {return coinId;}
+            case stock -> {return stockId;}
+            case bonds -> {return bondsId;}
+            case estate -> {return estateId;}
+            case futures -> {return futuresId;}
+            case commodities -> {return commoditiesId;}
             default -> {throw new InvalidCategoryException();}
         }
     }

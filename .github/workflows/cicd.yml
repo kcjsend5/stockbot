@@ -59,6 +59,8 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           DIFY_CHAT_KEY: ${{ secrets.DIFY_CHAT_KEY }}
           DIFY_KNOWLEDGE_KEY: ${{ secrets.DIFY_KNOWLEDGE_KEY }}
+          NAVER_KEY: ${{ secrets.NAVER_KEY }}
+          NAVER_SECRET: ${{ secrets.NAVER_SECRET }}
         run: ./gradlew build
 
       - name: Test with Gradle

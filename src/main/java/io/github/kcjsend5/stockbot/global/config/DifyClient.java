@@ -1,7 +1,9 @@
 package io.github.kcjsend5.stockbot.global.config;
 
+import io.github.kcjsend5.stockbot.global.api.difyProducts.dto.request.DifyCreateDocumentRequest;
 import io.github.kcjsend5.stockbot.global.api.difyProducts.dto.request.DifyDeleteRequest;
 import io.github.kcjsend5.stockbot.global.api.difyProducts.dto.request.DifySendChatRequest;
+import io.github.kcjsend5.stockbot.global.api.difyProducts.dto.response.DifyDocumentListResponse;
 import io.github.kcjsend5.stockbot.global.api.difyProducts.dto.response.DifySendChatResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
@@ -25,5 +27,24 @@ public interface DifyClient{
             URI uri,
             @RequestHeader("Authorization") String apiKey,
             @RequestBody DifyDeleteRequest request
+    );
+
+    @PostMapping(consumes = APPLICATION_JSON_VALUE)
+    void createDocument(
+            URI uri,
+            @RequestHeader("Authorization") String apiKey,
+            @RequestBody DifyCreateDocumentRequest request
+    );
+
+    @DeleteMapping(consumes = APPLICATION_JSON_VALUE)
+    void deleteDocument(
+            URI uri,
+            @RequestHeader("Authorization") String apiKey
+    );
+
+    @GetMapping(consumes = APPLICATION_JSON_VALUE)
+    DifyDocumentListResponse getDocument(
+            URI uri,
+            @RequestHeader("Authorization") String apiKey
     );
 }
