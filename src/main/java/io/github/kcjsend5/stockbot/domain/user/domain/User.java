@@ -45,4 +45,8 @@ public class User extends BaseEntity {
         this.conversations.add(conversation);
         conversation.setUser(this);
     }
+
+    public void setRole(Role role){
+        this.role = role;
+    }
 }
