@@ -56,6 +56,7 @@ public class SecurityConfig {
         httpSecurity.authorizeHttpRequests(authorize ->
                 authorize.anyRequest().permitAll());//.requestMatchers(list).permitAll()
         // .requestMatchers("/user/setRole").hasAnyRole("MANAGER","DEVELOPER")
+        // .requestMatchers("/knowledge/set").hasAnyRole("MANAGER","DEVELOPER")
         // .anyRequest().authenticated()); 실제 운영 중 변경
 
         //커스텀 필터 UsernamePasswordAuthenticationFilter 이전 실행

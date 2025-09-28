@@ -1,9 +1,6 @@
 package io.github.kcjsend5.stockbot.domain.user.controller;
 
-import io.github.kcjsend5.stockbot.domain.user.dto.request.LogInRequest;
-import io.github.kcjsend5.stockbot.domain.user.dto.request.LogoutRequest;
-import io.github.kcjsend5.stockbot.domain.user.dto.request.RefreshTokenRequest;
-import io.github.kcjsend5.stockbot.domain.user.dto.request.SignUpRequest;
+import io.github.kcjsend5.stockbot.domain.user.dto.request.*;
 import io.github.kcjsend5.stockbot.domain.user.dto.response.LogInResponse;
 import io.github.kcjsend5.stockbot.domain.user.dto.response.TokenResponse;
 import io.github.kcjsend5.stockbot.domain.user.service.UserService;
@@ -37,6 +34,12 @@ public class UserController {
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(LogoutRequest request) {
         userService.userLogout(request);
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/setRole")
+    public ResponseEntity<Void> setRole(RoleRequest request){
+        userService.userRole(request);
         return ResponseEntity.ok().build();
     }
 

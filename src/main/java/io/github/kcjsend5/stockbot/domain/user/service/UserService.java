@@ -1,10 +1,7 @@
 package io.github.kcjsend5.stockbot.domain.user.service;
 
 import io.github.kcjsend5.stockbot.domain.user.domain.User;
-import io.github.kcjsend5.stockbot.domain.user.dto.request.LogInRequest;
-import io.github.kcjsend5.stockbot.domain.user.dto.request.LogoutRequest;
-import io.github.kcjsend5.stockbot.domain.user.dto.request.RefreshTokenRequest;
-import io.github.kcjsend5.stockbot.domain.user.dto.request.SignUpRequest;
+import io.github.kcjsend5.stockbot.domain.user.dto.request.*;
 import io.github.kcjsend5.stockbot.domain.user.dto.response.LogInResponse;
 import io.github.kcjsend5.stockbot.domain.user.dto.response.TokenResponse;
 import io.github.kcjsend5.stockbot.domain.user.repository.UserRepository;
@@ -17,6 +14,7 @@ import io.github.kcjsend5.stockbot.global.exception.user.UserNotFoundException;
 import io.github.kcjsend5.stockbot.global.jwt.JwtToken;
 import io.github.kcjsend5.stockbot.global.jwt.JwtTokenProvider;
 import io.github.kcjsend5.stockbot.global.jwt.custom.CustomUserDetails;
+import io.github.kcjsend5.stockbot.global.util.SecurityUtil;
 import io.github.kcjsend5.stockbot.type.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -84,10 +82,17 @@ public class UserService {
     }
 
     public void userLogout(LogoutRequest request){
-        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(InvalidEmailException::new);
+        Long userId = SecurityUtil.getCurrentUserId();
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new InvalidPasswordException();
         }
         provider.deleteRefreshToken(request.getEmail());
+    }
+
+    @Transactional
+    public void userRole(RoleRequest request){
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(InvalidEmailException::new);
+        user.setRole(request.getRole());
     }
 }
