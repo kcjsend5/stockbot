@@ -17,6 +17,7 @@ import io.github.kcjsend5.stockbot.global.jwt.custom.CustomUserDetails;
 import io.github.kcjsend5.stockbot.global.util.SecurityUtil;
 import io.github.kcjsend5.stockbot.type.Role;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class UserService {
 
     private final UserRepository userRepository;
@@ -52,6 +54,8 @@ public class UserService {
     }
 
     public LogInResponse userLogin(LogInRequest request){
+
+        log.info(request.getEmail());
 
         User user = userRepository.findByEmail(request.getEmail()).orElseThrow(InvalidEmailException::new);
 
@@ -81,13 +85,10 @@ public class UserService {
 
     }
 
-    public void userLogout(LogoutRequest request){
+    public void userLogout(){
         Long userId = SecurityUtil.getCurrentUserId();
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
-        if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new InvalidPasswordException();
-        }
-        provider.deleteRefreshToken(request.getEmail());
+        provider.deleteRefreshToken(user.getEmail());
     }
 
     @Transactional

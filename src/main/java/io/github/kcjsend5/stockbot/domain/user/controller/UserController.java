@@ -22,23 +22,23 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LogInResponse> userLogin(LogInRequest request) throws Exception{
+    public ResponseEntity<LogInResponse> userLogin(@RequestBody  LogInRequest request) throws Exception{
         return ResponseEntity.ok(userService.userLogin(request));
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<TokenResponse> recreateToken(RefreshTokenRequest request){
+    public ResponseEntity<TokenResponse> recreateToken(@RequestBody RefreshTokenRequest request){
         return ResponseEntity.ok(userService.recreateToken(request));
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(LogoutRequest request) {
-        userService.userLogout(request);
+    public ResponseEntity<Void> logout() {
+        userService.userLogout();
         return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/setRole")
-    public ResponseEntity<Void> setRole(RoleRequest request){
+    public ResponseEntity<Void> setRole(@RequestBody RoleRequest request){
         userService.userRole(request);
         return ResponseEntity.ok().build();
     }

@@ -30,8 +30,8 @@ public class SecurityConfig {
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private static final String[] list ={
-            "/user/log_in",
-            "/user/sign_in"
+            "/user/login",
+            "/user/signup"
     };
 
     @Bean
@@ -54,10 +54,11 @@ public class SecurityConfig {
 
         //http 리퀘스트 인증 설정
         httpSecurity.authorizeHttpRequests(authorize ->
-                authorize.anyRequest().permitAll());//.requestMatchers(list).permitAll()
-        // .requestMatchers("/user/setRole").hasAnyRole("MANAGER","DEVELOPER")
-        // .requestMatchers("/knowledge/set").hasAnyRole("MANAGER","DEVELOPER")
-        // .anyRequest().authenticated()); 실제 운영 중 변경
+                authorize.requestMatchers(list).permitAll()
+                //.anyRequest().permitAll());
+                .requestMatchers("/user/setRole").hasAnyRole("MANAGER","DEVELOPER")
+                .requestMatchers("/knowledge/set").hasAnyRole("MANAGER","DEVELOPER")
+                .anyRequest().authenticated()); //실제 운영 중 변경
 
         //커스텀 필터 UsernamePasswordAuthenticationFilter 이전 실행
         httpSecurity.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),

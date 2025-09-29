@@ -93,7 +93,7 @@ public class JwtTokenProvider {
             return Jwts.parserBuilder()
                     .setSigningKey(key)//암호화한 키로 다시 복호화
                     .build()
-                    .parseClaimsJwt(token)//토큰 검증, 검증 후 파싱: Jwts 토큰을 Header, Body, Signature 세 부분으로 분리
+                    .parseClaimsJws(token)//토큰 검증, 검증 후 파싱: Jwts 토큰을 Header, Body, Signature 세 부분으로 분리
                     .getBody();
         } catch (ExpiredJwtException e){
             return e.getClaims();
@@ -116,7 +116,7 @@ public class JwtTokenProvider {
             Jwts.parserBuilder()
                     .setSigningKey(key)//암호화한 키로 다시 복호화
                     .build()
-                    .parseClaimsJwt(token);
+                    .parseClaimsJws(token);
 
             return true;
         } catch (SecurityException | MalformedJwtException e){
