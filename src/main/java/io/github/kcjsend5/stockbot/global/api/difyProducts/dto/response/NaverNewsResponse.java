@@ -13,6 +13,6 @@ import java.util.List;
 public class NaverNewsResponse {
 
     private int total;
-    private List<Item> item;
+    private List<Item> items;
 
 }

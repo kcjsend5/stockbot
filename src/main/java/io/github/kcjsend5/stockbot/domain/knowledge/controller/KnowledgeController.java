@@ -21,6 +21,4 @@ public class KnowledgeController {
         difyProductsService.knowledgeSave();
         return ResponseEntity.ok().build();
     };
-
-
 }
