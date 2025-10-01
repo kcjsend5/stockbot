@@ -2,6 +2,7 @@ package io.github.kcjsend5.stockbot.global.api.difyProducts.service;
 
 import io.github.kcjsend5.stockbot.global.api.difyProducts.dto.Data;
 import io.github.kcjsend5.stockbot.global.api.difyProducts.dto.Item;
+import io.github.kcjsend5.stockbot.global.api.difyProducts.dto.Process;
 import io.github.kcjsend5.stockbot.global.api.difyProducts.dto.request.DifyCreateDocumentRequest;
 import io.github.kcjsend5.stockbot.global.api.difyProducts.dto.request.DifyDeleteRequest;
 import io.github.kcjsend5.stockbot.global.api.difyProducts.dto.request.DifyProductsRequest;
@@ -37,6 +38,8 @@ public class DifyProductsService {
 
     @Value("${dify.chat.secret}")
     private String apiKey;
+    @Value("${dify.knowledge.secret}")
+    private String knowledgeKey;
     @Value("${dify.uri}")
     private String basicUri;
     @Value("${naver.id}")
@@ -60,14 +63,14 @@ public class DifyProductsService {
                 .query(request.getQuery())
                 .build();
         // 파일 입력 기능 만들기
-        return difyClient.sendChat(new URI(basicUri+"/chat-messages"),apiKey,difySendChatRequest);
+        return difyClient.sendChat(new URI(basicUri+"/chat-messages"),"Bearer "+apiKey,difySendChatRequest);
     }
 
     public void deleteChat(String email,String conversationId) throws URISyntaxException {
         DifyDeleteRequest request = DifyDeleteRequest.builder()
                 .user(email)
                 .build();
-        difyClient.deleteChat(new URI(basicUri+"/conversations/"+conversationId),apiKey,request);
+        difyClient.deleteChat(new URI(basicUri+"/conversations/"+conversationId),"Bearer "+apiKey,request);
     }
 
     @Scheduled(cron = "0 0 0 * * ?")
@@ -84,18 +87,22 @@ public class DifyProductsService {
 
         List<NaverNewsResponse> news = List.of(stock,coin,bonds,estate,futures,commodities);
 
+        Process process = new Process("automatic");
+
         for(int i = 0; i<ids.size();i++){
-            DifyDocumentListResponse documentListResponse = difyClient.getDocument(new URI(basicUri+"/datasets/"+ids.get(i)+"/documents"),apiKey);
+            DifyDocumentListResponse documentListResponse = difyClient.getDocument(new URI(basicUri+"/datasets/"+ids.get(i)+"/documents"),"Bearer "+knowledgeKey);
             List<Data> dataList = documentListResponse.getData();
             for(Data data:dataList){
-                difyClient.deleteDocument(new URI(basicUri+"/datasets/"+ids.get(i)+"/documents/"+data.getId()), apiKey);
+                difyClient.deleteDocument(new URI(basicUri+"/datasets/"+ids.get(i)+"/documents/"+data.getId()), "Bearer "+knowledgeKey);
             }
-            for(Item item: news.get(i).getItem()){
+            for(Item item: news.get(i).getItems()){
                 DifyCreateDocumentRequest documentRequest = DifyCreateDocumentRequest.builder()
                         .name(item.getTitle())
                         .text(item.getDescription())
+                        .indexing_technique("high_quality")
+                        .process_rule(process)
                         .build();
-                difyClient.createDocument(new URI(basicUri+"/datasets/"+ids.get(i)+"/document/create-by-text"),apiKey,documentRequest);
+                difyClient.createDocument(new URI(basicUri+"/datasets/"+ids.get(i)+"/document/create-by-text"),"Bearer "+knowledgeKey,documentRequest);
             }
         }
 

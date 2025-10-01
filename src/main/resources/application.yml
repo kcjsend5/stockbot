@@ -51,8 +51,11 @@ dify:
       estate: 36c321f4-0b2a-411f-b487-a67210e448d5
       futures: 4f5e04ee-9094-424b-8392-2b359541de33
       commodities: 7b15c364-a56a-4ee5-a915-3613059bb7fe
-  uri:
+  uri: http://localhost/v1
 
 naver:
   id: ${NAVER_KEY}
   secret: ${NAVER_SECRET}
+
+master:
+  password: password
