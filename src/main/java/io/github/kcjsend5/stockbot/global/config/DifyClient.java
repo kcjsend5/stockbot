@@ -45,6 +45,7 @@ public interface DifyClient{
     @GetMapping(consumes = APPLICATION_JSON_VALUE)
     DifyDocumentListResponse getDocument(
             URI uri,
-            @RequestHeader("Authorization") String apiKey
+            @RequestHeader("Authorization") String apiKey,
+            @RequestParam("limit") int limit
     );
 }

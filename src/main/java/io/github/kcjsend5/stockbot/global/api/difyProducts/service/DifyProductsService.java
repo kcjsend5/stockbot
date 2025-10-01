@@ -80,7 +80,7 @@ public class DifyProductsService {
 
         NaverNewsResponse stock =naverClient.news(naverId, naverSecret, URLEncoder.encode("주식", StandardCharsets.UTF_8), 100, "date");
         NaverNewsResponse coin =naverClient.news(naverId, naverSecret, URLEncoder.encode("암호화폐", StandardCharsets.UTF_8), 100, "date");
-        NaverNewsResponse futures =naverClient.news(naverId, naverSecret, URLEncoder.encode("선물", StandardCharsets.UTF_8), 100, "date");
+        NaverNewsResponse futures =naverClient.news(naverId, naverSecret, URLEncoder.encode("선물 거래", StandardCharsets.UTF_8), 100, "date");
         NaverNewsResponse bonds =naverClient.news(naverId, naverSecret, URLEncoder.encode("채권", StandardCharsets.UTF_8), 100, "date");
         NaverNewsResponse commodities =naverClient.news(naverId, naverSecret, URLEncoder.encode("현물", StandardCharsets.UTF_8), 100, "date");
         NaverNewsResponse estate =naverClient.news(naverId, naverSecret, URLEncoder.encode("부동산", StandardCharsets.UTF_8), 100, "date");
@@ -90,7 +90,7 @@ public class DifyProductsService {
         Process process = new Process("automatic");
 
         for(int i = 0; i<ids.size();i++){
-            DifyDocumentListResponse documentListResponse = difyClient.getDocument(new URI(basicUri+"/datasets/"+ids.get(i)+"/documents"),"Bearer "+knowledgeKey);
+            DifyDocumentListResponse documentListResponse = difyClient.getDocument(new URI(basicUri+"/datasets/"+ids.get(i)+"/documents"),"Bearer "+knowledgeKey,100);
             List<Data> dataList = documentListResponse.getData();
             for(Data data:dataList){
                 difyClient.deleteDocument(new URI(basicUri+"/datasets/"+ids.get(i)+"/documents/"+data.getId()), "Bearer "+knowledgeKey);

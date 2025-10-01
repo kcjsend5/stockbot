@@ -28,6 +28,7 @@ import io.github.kcjsend5.stockbot.global.util.SecurityUtil;
 import io.github.kcjsend5.stockbot.type.Category;
 import io.github.kcjsend5.stockbot.type.Sender;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -42,6 +43,7 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class ConversationService {
 
     private final ConversationRepository conversationRepository;
@@ -149,7 +151,11 @@ public class ConversationService {
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
         Conversation conversation = conversationRepository.findByConversationId(conversationId).orElseThrow(ConversationNotFoundException::new);
-        if(Objects.equals(conversation.getUser().getId(), user.getId())){
+
+        log.info(conversation.getUser().getId().toString());
+        log.info(user.getId().toString());
+
+        if(!Objects.equals(conversation.getUser().getId(), user.getId())){
             throw new ForbiddenUserException();
         }
         difyProductsService.deleteChat(user.getEmail(), conversationId);

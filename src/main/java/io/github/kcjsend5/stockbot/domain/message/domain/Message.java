@@ -21,6 +21,7 @@ public class Message extends BaseEntity {
     @JoinColumn(name="conversation_id")
     private Conversation conversation;
 
+    @Column(length = 2000)
     private String messageText;
 
     @Enumerated(EnumType.STRING)
