@@ -31,7 +31,7 @@ services:
 
   backend:
     image: ${DOCKER_ID}/${BACKEND}:latest
-    container_name: recipe-backend
+    container_name: stockbot-backend
     depends_on:
       - mysql
     ports:
